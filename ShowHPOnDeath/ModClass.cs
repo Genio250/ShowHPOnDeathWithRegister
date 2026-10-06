@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -149,6 +150,16 @@ namespace ShowHPOnDeath
                 {
                     if (BossNames.TryGetValue(boss.gameObject.name, out string displayName))
                     {
+                        string filepath = Path.Combine(
+                            "hollow_knight_Data",
+                            "Managed",
+                            "Mods",
+                            "ShowHPOnDeathHistory",
+                            "Register.tsv"
+                        );
+                        string saving = displayName + '\t' + boss.hp + '\n';
+                        File.AppendAllText(filepath, saving);
+
                         CurrentBosses.Add((displayName, boss.hp));
                         foundAnyBoss = true;
 
